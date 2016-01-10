@@ -1,11 +1,10 @@
 #!/bin/bash
-
-# Ejector is a plugin for BitBar that enables you to eject mounted drive easily.
-# BitBar plugin - https://github.com/carlsonorozco/ejector
 #
-# by Carlson Orozco
-#
-# Refresh every 5 seconds
+# <bitbar.title>Ejector</bitbar.title>
+# <bitbar.version>v1.0</bitbar.version>
+# <bitbar.author>Carlson Orozco</bitbar.author>
+# <bitbar.author.github>carlsonorozco</bitbar.author.github>
+# <bitbar.desc>Ejector is a plugin for BitBar that enables you to eject mounted drive easily.</bitbar.desc>
 
 about="About Ejector | color=red href=https://github.com/carlsonorozco/ejector"
 
@@ -50,7 +49,7 @@ df -Hl | grep /Volumes/ |
 while IFS= read -r line; do
     drive=${line#*/Volumes/}
 
-    diskutil info /Volumes/"$drive" | grep -E 'File System Personality:|Volume Free Space:|Total Size:' | \
+    diskutil info /Volumes/"$drive" | grep -E 'Volume Free Space:|Total Size:' | \
     { while IFS= read -r detail; do
         if [[ "$detail" =~ "Volume Free Space:" ]]
         then
@@ -69,5 +68,6 @@ done
 if [ $((total_drive)) -ge 3 ]; then
     echo "Eject All | color=red bash=$0 param1=ejectall terminal=false"
 fi
+
 echo '---'
 echo "$about"
